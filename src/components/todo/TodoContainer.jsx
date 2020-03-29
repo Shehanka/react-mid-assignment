@@ -10,7 +10,9 @@ class TodoContainer extends Component {
       { id: 2, title: "node app", completed: true },
       { id: 3, title: "docker build", completed: false }
     ],
-    title: ""
+    title: "",
+    btnAdd: false,
+    btnUpdate: true
   };
 
   markComplete = id => {
@@ -27,6 +29,15 @@ class TodoContainer extends Component {
   deleteTodo = id => {
     this.setState({
       todos: [...this.state.todos.filter(todo => todo.id !== id)]
+    });
+  };
+
+  editTodo = (id, title) => {
+    this.setState({
+      editID: id,
+      title: title,
+      btnAdd: true,
+      btnUpdate: false
     });
   };
 
@@ -60,6 +71,29 @@ class TodoContainer extends Component {
     this.addTodo(this.state.title);
   };
 
+  onUpdate = e => {
+    console.log(this.state.editID)
+
+    const updateTodo = {
+      id: this.state.editID,
+      title: this.state.title,
+      completed: false
+    };
+
+    this.setState({
+      todos: [...this.state.todos.filter(todo => todo.id !== this.state.editID), updateTodo]
+    });
+
+    // this.addTodo(this.state.title);
+    
+    this.setState({
+      title: "",
+      editID: "",
+      btnAdd: false,
+      btnUpdate: true,
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -72,7 +106,7 @@ class TodoContainer extends Component {
           <div className="container">
             <Form.Group onSubmit={this.onSubmit}>
               <div className="row">
-                <div className="col-sm-4"></div>
+                <div className="col-sm-2"></div>
                 <div className="col-sm-6">
                   <Form.Control
                     type="text"
@@ -82,13 +116,22 @@ class TodoContainer extends Component {
                     value={this.state.title}
                   />
                 </div>
-                <div className="col-sm-2">
+                <div className="col-sm-4">
                   <button
                     type="submit"
                     className="btn btn-primary"
                     onClick={this.onSubmit}
+                    disabled={this.state.btnAdd}
                   >
-                    New Todo
+                    Add Todo
+                  </button>{" "}
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={this.onUpdate}
+                    disabled={this.state.btnUpdate}
+                  >
+                    Update Todo
                   </button>
                 </div>
               </div>
@@ -100,6 +143,7 @@ class TodoContainer extends Component {
           todos={this.state.todos}
           markComplete={this.markComplete}
           deleteTodo={this.deleteTodo}
+          editTodo={this.editTodo}
         />
       </React.Fragment>
     );

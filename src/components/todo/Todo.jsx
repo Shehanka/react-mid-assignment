@@ -34,7 +34,10 @@ class Todo extends Component {
             />{" "}
             {title}{" "}
             <div style={{ float: "right" }}>
-              <button className="btn btn-primary">
+              <button
+                className="btn btn-primary"
+                onClick={this.props.editTodo.bind(this, id, title)}
+              >
                 <MdModeEdit />
               </button>{" "}
               <button
