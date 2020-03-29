@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import uuid from "react-uuid";
 import TodoList from "./TodoList";
 import Form from "react-bootstrap/Form";
+import "./TodoContainer.css";
 
 class TodoContainer extends Component {
   state = {
@@ -58,7 +59,10 @@ class TodoContainer extends Component {
     return {
       width: "100%",
       height: "50px",
-      backgroundColor: "#3498db"
+      backgroundColor: "#3498db",
+      color: "white",
+      margin: "auto",
+      padding: "10px"
     };
   };
 
@@ -72,7 +76,7 @@ class TodoContainer extends Component {
   };
 
   onUpdate = e => {
-    console.log(this.state.editID)
+    // console.log(this.state.editID);
 
     const updateTodo = {
       id: this.state.editID,
@@ -81,24 +85,57 @@ class TodoContainer extends Component {
     };
 
     this.setState({
-      todos: [...this.state.todos.filter(todo => todo.id !== this.state.editID), updateTodo]
+      todos: [
+        ...this.state.todos.filter(todo => todo.id !== this.state.editID),
+        updateTodo
+      ]
     });
 
     // this.addTodo(this.state.title);
-    
+
     this.setState({
       title: "",
       editID: "",
       btnAdd: false,
-      btnUpdate: true,
+      btnUpdate: true
     });
   };
+
+  getPendingTodoCount() {
+    var count = 0;
+    this.state.todos.forEach(todo => {
+      if (todo.completed === false) {
+        count++;
+      }
+    });
+    return count;
+  }
+
+  getCompletedTodoCount() {
+    return this.state.todos.length - this.getPendingTodoCount();
+  }
 
   render() {
     return (
       <React.Fragment>
-        <div style={this.stripeStyle()}>
-          All todos : {this.state.todos.length}
+        <div className="stripe">
+          <div className="container">
+            <div className="row">
+              <div className="col-sm-4 col-lg-2">
+                All todos : {this.state.todos.length}
+              </div>
+
+              <div className="col-sm-4 col-lg-2">
+                Pending todos: {this.getPendingTodoCount()}
+              </div>
+
+              <div className="col-cm-4 col-lg-2">
+                Completed todos: {this.getCompletedTodoCount()}
+              </div>
+
+              <div className="col-sm-6"></div>
+            </div>
+          </div>
         </div>
 
         <br />
@@ -119,7 +156,7 @@ class TodoContainer extends Component {
                 <div className="col-sm-4">
                   <button
                     type="submit"
-                    className="btn btn-primary"
+                    className="btn btn-primary btn-xs-block"
                     onClick={this.onSubmit}
                     disabled={this.state.btnAdd}
                   >
@@ -127,7 +164,7 @@ class TodoContainer extends Component {
                   </button>{" "}
                   <button
                     type="submit"
-                    className="btn btn-primary"
+                    className="btn btn-primary btn-xs-block"
                     onClick={this.onUpdate}
                     disabled={this.state.btnUpdate}
                   >

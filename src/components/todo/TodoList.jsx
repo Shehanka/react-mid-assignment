@@ -5,23 +5,26 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 class TodoList extends Component {
   render() {
-    return this.props.todos.map(todo => (
-      <ListGroup className="container" style={{ width: "500px" }}>
-        <Todo
-          key={todo.id}
-          todo={todo}
-          markComplete={this.props.markComplete}
-          deleteTodo={this.props.deleteTodo}
-          editTodo={this.props.editTodo}
-          checked={todo.completed}
-        />
-      </ListGroup>
-    ));
+    return (
+      this.props.todos.sort((a, b) => a.completed > b.completed),
+      this.props.todos.map(todo => (
+        <ListGroup className="container" style={{ width: "500px" }}>
+          <Todo
+            key={todo.id}
+            todo={todo}
+            markComplete={this.props.markComplete}
+            deleteTodo={this.props.deleteTodo}
+            editTodo={this.props.editTodo}
+            checked={todo.completed}
+          />
+        </ListGroup>
+      ))
+    );
   }
 }
 
 TodoList.propTypes = {
-  todo: PropTypes.array.isRequired
+  todos: PropTypes.array.isRequired
 };
 
 export default TodoList;
