@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import TodoCotainer from "./components/todo/TodoContainer";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import LandingPage from "./components/LandingPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
     <div className="App">
-      <TodoCotainer />
+      <LandingPage />
     </div>
   );
 }

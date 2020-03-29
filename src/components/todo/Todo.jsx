@@ -4,14 +4,27 @@ import { MdDeleteForever, MdModeEdit } from "react-icons/md";
 
 class Todo extends Component {
   state = {};
+  useStyle = () => {
+    return {
+      fontWeight: "bold",
+      height: "65px",
+      fontFamily: "Baloo Thambi 2"
+    };
+  };
   render() {
     const { id, title, completed } = this.props.todo;
+
     return (
       <React.Fragment>
-        <div className="container">
+        <div
+          className="container"
+          style={{
+            textDecoration: completed === true ? "line-through" : "none"
+          }}
+        >
           <ListGroup.Item
-            style={{ height: "65px" }}
-            variant={completed === true ? "success" : null}
+            style={this.useStyle()}
+            variant={completed === true ? "primary" : null}
           >
             <input
               type="checkbox"

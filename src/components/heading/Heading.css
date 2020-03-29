@@ -1,0 +1,12 @@
+.background {
+  background-image: url("../../assets/images/bg.jpg");
+  width: 100%;
+  height: 150px;
+  background-position: center;
+}
+
+.text {
+  color: white;
+  font-family: "Baloo Thambi 2", recursive;
+  margin: 0 auto;
+}
