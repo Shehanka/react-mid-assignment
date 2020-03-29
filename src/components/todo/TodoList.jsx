@@ -6,13 +6,14 @@ import ListGroup from "react-bootstrap/ListGroup";
 class TodoList extends Component {
   render() {
     return this.props.todos.map(todo => (
-      <ListGroup>
-      <Todo
-        key={todo.id}
-        todo={todo}
-        markComplete={this.props.markComplete}
-        deleteTodo={this.props.deleteTodo}
-      />
+      <ListGroup className="container" style={{ width: "500px" }}>
+        <Todo
+          key={todo.id}
+          todo={todo}
+          markComplete={this.props.markComplete}
+          deleteTodo={this.props.deleteTodo}
+          checked={todo.completed}
+        />
       </ListGroup>
     ));
   }
